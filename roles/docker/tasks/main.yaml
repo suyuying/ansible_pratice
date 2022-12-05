@@ -30,3 +30,17 @@
     name: docker
     state: started
     enabled: yes
+
+# Check if the docker-compsoe is already installed
+- name: Check that the docker-compose
+  stat:
+    path: /usr/bin/docker-compose
+  register: file_status
+
+
+# docker-compose installtion
+- name: Download docker-compose binary file
+  shell: 
+    - curl -SL https://github.com/docker/compose/releases/download/v2.14.0/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+    - ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+   when: file_status.stat.exists == False

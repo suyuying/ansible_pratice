@@ -3,5 +3,13 @@ base_packages:
   - vim
   - git
   - tree
+  - ntpdate
+  - lrzsz
+  - lsof
+  - net-tools
+  - openssl-devel
+  - wget
+  - nc
+
 
 

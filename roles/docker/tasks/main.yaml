@@ -23,3 +23,10 @@
     name: "{{ item }}"
     state: latest
   loop: "{{ docker_packges }}"
+
+#start Dcoker Engine service
+- name: Start Docker Engine
+  service:
+    name: docker
+    state: started
+    enabled: yes

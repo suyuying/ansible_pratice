@@ -9,6 +9,10 @@
 #    state: stopped
 #    enabled: no
 
+- name: Set a hostname
+  ansible.builtin.hostname:
+    name: {{ hostname }}
+
 - name: install Base package
   yum:
     name: "{{ item }}"

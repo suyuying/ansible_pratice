@@ -11,7 +11,7 @@
 
 - name: Set a hostname
   ansible.builtin.hostname:
-    name: {{ hostname }}
+    name: "{{ hostname }}"
 
 - name: install Base package
   yum:

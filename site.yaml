@@ -3,3 +3,8 @@
   gather_facts: False
   roles:
     - centos_base
+
+- hosts: Docker
+  gather_facts: False
+  roles:
+    - docker

@@ -1,0 +1,21 @@
+# Older versions of Docker were called docker or docker-engine. If these are installed, uninstall them, along with associated dependencies.
+
+- name: remove Old docker package
+  yum:
+    name: "{{ item }}"
+    state: removed
+  loop: "{{ remove_packages }}"
+
+#add docker repository
+- name: add custom repository
+  yum_repository:
+      name: docker_repo
+      description: Before you install Docker Engine for the first time on a new host machine, you need to set up the Docker repository. Afterward, you can install and update Docker from the repository.
+      baseurl: "{{ docker_repo }}"
+
+# install docker engine
+- name: install Docker package
+  yum:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ docker_packges }}"

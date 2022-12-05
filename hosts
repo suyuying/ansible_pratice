@@ -13,6 +13,9 @@
 [CentOS7]
 localhost
 
+[Docker]
+localhost
+
 ## green.example.com
 ## blue.example.com
 ## 192.168.100.1

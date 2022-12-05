@@ -1,0 +1,10 @@
+---
+- name: This is a hello-world example
+  hosts: localhost
+  gather_facts: no
+  vars:
+    foo: bar
+  tasks:
+  - name: Show debug info
+    debug: 
+      msg: "Variable 'foo' is set to {{ foo }} {{ test1}} {{ test2}} group_vars={{ version }}"

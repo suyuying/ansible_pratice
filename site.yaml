@@ -1,0 +1,5 @@
+---
+- hosts: CentOS7
+  gather_facts: False
+  roles:
+    - centos_base

@@ -40,10 +40,15 @@
 
 # docker-compose installtion
 - name: Download docker-compose binary file
-  shell: curl -SL https://github.com/docker/compose/releases/download/v2.14.0/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+  ansible.builtin.get_url:
+    url: "{{ docker_compose_url }}"
+    dest: "{{ docker_compose_dest_path }}"
+    mode: '07550'
   when: file_status.stat.exists == False
 
-- name: Create short cut 
-  shell: ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+- name: Create short cut
+  ansible.builtin.file:
+    src: "{{ docker_compose_dest_path }}" 
+    dest: "{{ docker_compose_link_path }}"
   when: file_status.stat.exists == False
   

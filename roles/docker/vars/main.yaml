@@ -15,3 +15,7 @@ docker_packges:
   - docker-ce-cli 
   - containerd.io 
   - docker-compose-plugin
+
+docker_compose_url: https://github.com/docker/compose/releases/download/v2.14.0/docker-compose-linux-x86_64
+docker_compose_dest_path: /usr/local/bin/docker-compose
+docker_compose_link_path: /usr/bin/docker-compose

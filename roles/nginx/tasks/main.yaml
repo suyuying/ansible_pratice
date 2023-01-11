@@ -1,0 +1,36 @@
+#- sysctl:
+#    name: net.ipv4.ip_forward
+#    value: '1'
+#    sysctl_set: yes
+#    state: present
+#    reload: yes
+
+# optmize for Nginx too much TCP time_wait
+- sysctl:
+    name: "{{ name }}"
+    value: "{{ value }}"
+    sysctl_set: yes
+    state: present
+    reload: yes
+  with_items:
+    - { name: 'net.ipv4.ip_forward', value: '1' }
+    - { name: 'net.ipv4.tcp_syncookies', value: '1' }
+    - { name: 'net.ipv4.tcp_syncookies', value: '1' }
+    - { name: 'net.ipv4.tcp_tw_reuse', value: '1' }
+    - { name: 'net.ipv4.tcp_tw_recycle', value: '1' }
+
+# install nginx package
+- name: install nginx
+  yum:
+    name: nginx 
+    state: latest
+
+
+
+#Start Nginx Service and startup when Linux starts
+- name: Start Nginx Service
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+

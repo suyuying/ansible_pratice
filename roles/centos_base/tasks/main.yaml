@@ -22,7 +22,7 @@
 # set the TimeZone    
 - name: Set timezone to Asia/Manila
   community.general.timezone:
-    name: Asia/Manila
+    name: "{{ time_zone }}"
 
 
 

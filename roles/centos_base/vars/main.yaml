@@ -10,6 +10,6 @@ base_packages:
   - openssl-devel
   - wget
   - nc
-
+time_zone: Asia/Manila
 
 

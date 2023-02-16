@@ -60,6 +60,13 @@
     groups: ops
     append: yes
 
+# add sudo previleges to the ops user
+- name: Config /etc/sudoers
+  lineinfile: dest=/etc/sudoers state=present  line='{{item}}' validate='visudo -cf %s'
+  with_items:
+    - "ops ALL=(ALL) NOPASSWD: ALL"
+    - "Defaults: ops !requiretty"
+
 - name: Set up multiple authorized keys
   authorized_key:
     user: ops

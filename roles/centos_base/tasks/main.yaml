@@ -46,8 +46,27 @@
   tags:
       - setlimits
 
+# add ops group
+- name: Ensure group "ops" exists
+  ansible.builtin.group:
+    name: ops
+    state: present
 
+# add ops user
+- name: Add the user 'ops' with a bash shell, appending the group ops 
+  ansible.builtin.user:
+    name: ops 
+    shell: /bin/bash
+    groups: ops
+    append: yes
 
+- name: Set up multiple authorized keys
+  authorized_key:
+    user: ops
+    state: present
+    key: '{{ item }}'
+  with_file: "{{ ssh_pub_key }}"
+  
 
 # config ssh config
 - name: Update sshd configuration safely, avoid locking yourself out

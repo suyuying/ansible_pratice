@@ -17,7 +17,10 @@ ssh_config:
   port: 3333
   disalbe_root_login: True
   disalbe_password_login: True
-  
+
+
+ssh_pub_key:
+  - files/kaka.pub
 
 
 

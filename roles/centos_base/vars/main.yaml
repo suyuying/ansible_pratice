@@ -10,6 +10,14 @@ base_packages:
   - openssl-devel
   - wget
   - nc
+
 time_zone: Asia/Manila
+
+ssh_config:
+  port: 3333
+  disalbe_root_login: True
+  disalbe_password_login: True
+  
+
 
 

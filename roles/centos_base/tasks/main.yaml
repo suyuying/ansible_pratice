@@ -78,10 +78,12 @@
 # config ssh config
 - name: Update sshd configuration safely, avoid locking yourself out
   ansible.builtin.template:
-    src: /etc/ssh/sshd_config.j2
+    src: sshd_config.j2
     dest: /etc/ssh/sshd_config
     owner: root
     group: root
     mode: '0600'
     validate: /usr/sbin/sshd -t -f %s
     backup: yes
+  notify: 
+    - (Handler) Restart SSHD Service

@@ -1,4 +1,4 @@
 ---
 test1: value1
 test2: value2
-hostname: IMTest-1-SG
+hostname: ansible

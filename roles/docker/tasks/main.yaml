@@ -34,7 +34,7 @@
 # Check if the docker-compsoe is already installed
 - name: Check that the docker-compose
   stat:
-    path: {{ docker_compose_link_path }} 
+    path: "{{ docker_compose_link_path }}"
   register: file_status
 
 
@@ -50,5 +50,6 @@
   ansible.builtin.file:
     src: "{{ docker_compose_dest_path }}" 
     dest: "{{ docker_compose_link_path }}"
+    state: link
   when: file_status.stat.exists == False
   

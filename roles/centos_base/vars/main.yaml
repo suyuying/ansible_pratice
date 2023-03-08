@@ -3,7 +3,6 @@ base_packages:
   - vim
   - git
   - tree
-  - ntpdate
   - lrzsz
   - lsof
   - net-tools
@@ -15,7 +14,7 @@ time_zone: Asia/Manila
 
 ssh_config:
   port: 3333
-  disalbe_root_login: True
+  disalbe_root_login: False
   disalbe_password_login: True
 
 

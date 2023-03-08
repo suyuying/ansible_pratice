@@ -7,8 +7,8 @@
 
 # optmize for Nginx too much TCP time_wait
 - sysctl:
-    name: "{{ name }}"
-    value: "{{ value }}"
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
     sysctl_set: yes
     state: present
     reload: yes

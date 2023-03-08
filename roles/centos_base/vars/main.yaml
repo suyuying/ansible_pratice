@@ -13,7 +13,7 @@ base_packages:
 time_zone: Asia/Manila
 
 ssh_config:
-  port: 3333
+  port: 22
   disalbe_root_login: False
   disalbe_password_login: True
 

@@ -8,3 +8,8 @@
   gather_facts: False
   roles:
     - docker
+
+- hosts: Nginx
+  gather_facts: False
+  roles:
+    - nginx

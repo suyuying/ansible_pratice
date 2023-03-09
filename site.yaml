@@ -1,13 +1,13 @@
 ---
-- hosts: CentOS7
-  gather_facts: False
-  roles:
-    - centos_base
-
-- hosts: Docker
-  gather_facts: False
-  roles:
-    - docker
+#- hosts: CentOS7
+#  gather_facts: False
+#  roles:
+#    - centos_base
+#
+#- hosts: Docker
+#  gather_facts: False
+#  roles:
+#    - docker
 
 - hosts: Nginx
   gather_facts: True

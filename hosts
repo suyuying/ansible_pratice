@@ -12,12 +12,15 @@
 
 [CentOS7]
 localhost
+Centos8
 
 [Docker]
 localhost
+Centos8
 
 [Nginx]
 localhost
+Centos8
 
 ## green.example.com
 ## blue.example.com

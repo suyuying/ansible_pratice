@@ -1,0 +1,4 @@
+---
+test1: value1
+ansible_ssh_port: 3333
+hostname: Centos8

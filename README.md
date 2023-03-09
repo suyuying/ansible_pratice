@@ -7,3 +7,7 @@ ansible-galaxy collection install community.general
 您也可以将其包含在requirements.yml文件中，并通过以下格式通过ansible-galaxy collection
 ```
 ## ansible-galaxy collection install community.general
+
+
+## ansible-playbook site.yaml --tags ssd_config
+## ansible-playbook site.yaml --skip-tags ssd_config

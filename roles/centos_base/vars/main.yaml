@@ -15,7 +15,7 @@ time_zone: Asia/Manila
 ssh_config:
   port: 22
   disalbe_root_login: False
-  disalbe_password_login: True
+  disalbe_password_login: False
 
 
 ssh_pub_key:

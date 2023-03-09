@@ -87,3 +87,5 @@
     backup: yes
   notify: 
     - (Handler) Restart SSHD Service
+  tags:
+    - ssd_config

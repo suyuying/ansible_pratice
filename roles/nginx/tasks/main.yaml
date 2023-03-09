@@ -5,7 +5,7 @@
 #    state: present
 #    reload: yes
 
-# optmize for Nginx too much TCP time_wait
+# optmize for Nginx too much TCP time_wait for Centos7
 - sysctl:
     name: "{{ item.name }}"
     value: "{{ item.value }}"
@@ -18,6 +18,21 @@
     - { name: 'net.ipv4.tcp_syncookies', value: '1' }
     - { name: 'net.ipv4.tcp_tw_reuse', value: '1' }
     - { name: 'net.ipv4.tcp_tw_recycle', value: '1' }
+  when: ansible_kernel == "3.10.0-1160.el7.x86_64"
+
+# optmize for Nginx too much TCP time_wait for Centos8
+- sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    sysctl_set: yes
+    state: present
+    reload: yes
+  with_items:
+    - { name: 'net.ipv4.ip_forward', value: '1' }
+    - { name: 'net.ipv4.tcp_syncookies', value: '1' }
+    - { name: 'net.ipv4.tcp_syncookies', value: '1' }
+    - { name: 'net.ipv4.tcp_tw_reuse', value: '1' }
+  when: ansible_kernel == "4.18.0-448.el8.x86_64"
 
 # install nginx package
 - name: install nginx

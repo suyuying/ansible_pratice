@@ -2,6 +2,7 @@
 - name: diskable SELinux
   selinux:
     state: disabled
+  when: ansible_distribution == 'CentOS'
 
 
 - name: Check if Service Exists
@@ -13,27 +14,29 @@
     name: "{{ need_to_stopped_service }}"
     state: stopped 
     enabled: false
-  when: service_exists > 0
+  when: service_exists|int > 0
 
 - name: Set a hostname
   ansible.builtin.hostname:
     name: "{{ hostname }}"
+  become: true
 
 - name: install Base package
-  yum:
+  apt:
     name: "{{ item }}"
     state: latest
   loop: "{{ base_packages }}"
-
+  become: true
 # set the TimeZone    
 - name: Set timezone to Asia/Manila
   community.general.timezone:
     name: "{{ time_zone }}"
-
+  become: true
 
 
 - name: Set sysctl file limits
   #pam_limits: domain='*' limit_type=`item`.`limit_type` limit_item=`item`.`limit_item` value=`item`.`value` 
+  become: true
   pam_limits:
       dest: "{{ item.dest }}"
       domain: '*'
@@ -54,12 +57,14 @@
 
 # add ops group
 - name: Ensure group "ops" exists
+  become: true
   ansible.builtin.group:
     name: ops
     state: present
 
 # add ops user
 - name: Add the user 'ops' with a bash shell, appending the group ops 
+  become: true
   ansible.builtin.user:
     name: ops 
     shell: /bin/bash
@@ -68,12 +73,14 @@
 
 # add sudo previleges to the ops user
 - name: Config /etc/sudoers
+  become: true
   lineinfile: dest=/etc/sudoers state=present  line='{{item}}' validate='visudo -cf %s'
   with_items:
     - "ops ALL=(ALL) NOPASSWD: ALL"
     - "Defaults: ops !requiretty"
 
 - name: Set up multiple authorized keys
+  become: true
   authorized_key:
     user: ops
     state: present
@@ -83,6 +90,7 @@
 
 # config ssh config
 - name: Update sshd configuration safely, avoid locking yourself out
+  become: true
   ansible.builtin.template:
     src: sshd_config.j2
     dest: /etc/ssh/sshd_config

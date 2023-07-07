@@ -1,4 +1,5 @@
 - name: (Handler) Restart SSHD Service
+  become: true
   service:
     name: sshd
     state: restarted

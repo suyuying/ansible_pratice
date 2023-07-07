@@ -1,8 +1,8 @@
 ---
-- hosts: CentOS7
-  gather_facts: False
+- hosts: Ubuntu22 
+  gather_facts: True
   roles:
-    - centos_base
+    - ubuntu_base
 
 - hosts: Docker
   gather_facts: False

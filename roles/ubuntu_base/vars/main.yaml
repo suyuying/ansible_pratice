@@ -1,19 +1,19 @@
 base_packages:
-  - epel-release
+  # - epel-release
   - vim
   - git
   - tree
   - lrzsz
   - lsof
   - net-tools
-  - openssl-devel
+    # - openssl-devel
   - wget
-  - nc
+    #  - nc
 
 time_zone: Asia/Manila
 
 ssh_config:
-  port: 3333
+  port: 22
   disalbe_root_login: False
   disalbe_password_login: False
 

@@ -1,0 +1,4 @@
+---
+test1: value1
+ansible_ssh_port: 22
+hostname: backend1

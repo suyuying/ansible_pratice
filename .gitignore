@@ -1,2 +1,31 @@
+# Ignore Ansible vault files
+vault.yml
+*.vault
+
+# Ignore compiled Python files
+*.pyc
+__pycache__/
+
+# Ignore Ansible fact cache
+.ansible/
+
+# Ignore local inventory file
+inventory.ini
+
+# Ignore log files
+ansible.log
+
+# Ignore temporary files
+*.retry
+*.tmp
+*.swp
 *.log
+*.pid
+
+# Ignore Ansible collections
+collections/
+
+# Ignore virtual environment
+venv/
+
 *.exe

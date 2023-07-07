@@ -10,6 +10,13 @@
 
 # Ex 1: Ungrouped hosts, specify before any group headers.
 
+[Ubuntu22]
+prometheus_server ansible_host=10.0.0.112
+
+[Ubuntu22:vars]
+ansible_user=ubuntu
+
+
 [CentOS7]
 localhost
 Centos8

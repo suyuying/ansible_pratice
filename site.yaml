@@ -13,3 +13,11 @@
   gather_facts: True
   roles:
     - nginx
+- hosts: filebeat
+  gather_facts: True
+  become: yes
+  become_user: root
+  become_method: su
+  become_exe: sudo su
+  roles:
+    - filebeat_install

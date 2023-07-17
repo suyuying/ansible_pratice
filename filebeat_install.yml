@@ -1,0 +1,61 @@
+---
+- name: Install Filebeat
+  hosts: filebeat
+  become: yes
+  tasks:
+    - name: Install necessary packages
+      apt:
+        name:
+          - apt-transport-https
+          - wget
+        state: present
+
+    - name: Add Elastic GPG key
+      apt_key:
+        url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+        state: present
+
+    - name: Add Elastic repository
+      apt_repository:
+        repo: "deb https://artifacts.elastic.co/packages/8.x/apt stable main"
+        state: present
+        filename: elastic-8.x
+
+    - name: Update apt and install filebeat
+      apt:
+        name: filebeat
+        update_cache: yes
+        state: present
+
+    - name: Enable filebeat service
+      systemd:
+        name: filebeat
+        enabled: yes
+    - name: Write content to /etc/filebeat/ca.crt
+      ansible.builtin.copy:
+        dest: /etc/filebeat/ca.crt
+        content: |
+          Bag Attributes
+            friendlyName: ca
+            localKeyID: #####ur###
+          subject=/CN=Elasticsearch HTTP CA
+          issuer=/CN=Elasticsearch HTTP CA
+          -----BEGIN CERTIFICATE-----
+          MIIDIjCCAgqgAwIBAgIVAJUNw8bKRPBkFi5dF9ZUt5J9f3dnMA0GCSqGSIb3DQEB
+          AI+m0YbK1nXU9IeD0wCAD2obJKo4G9GyTJkPfefNfuRlNC4IXy3qSIzVVgfgLn/B
+          XlU+O6M3FBoEVMEYJhWYqNV+iuAKsOP/kQ0BM/Di37lY+yYwHGDXATyFvWvidrCo
+          bVKYGpfKg6IChHd53UzMnPKjVxZXhb9hxxvVh9ZUeUSogkLraNyXxWgbNA4HoIuQ
+          gQPGuS5UFmIjdAwNZ0Kg972LmaP39SEE3Bpzho6Ic9Sm+l6OhTiJw6BlyZrfULZ0
+          I92VNqvkLEUCAwEAAaNTMFEwHQYDVR0OBBYEFA0jgLHWfjq1OjC7UycQ4BeL509F
+          MB8GA1UdIwQYMBaAFA0jgLHWfjq1OjC7UycQ4BeL509FMA8GA1UdEwEB/wQFMAMB
+          Af8wDQYJKoZIhvcNAQELBQADggEBACLBC66tegq4MgZdfirWH3yUVo4gefwqM1yB
+          NF6EaisZejWKaugogZdzdoIeEbnsSKvlEtlmgRLe05+E9q3jQ8tV/iI5TZFBD2Nd
+          vuHpiorz9RiSLM2+FBjW+qSydfBjh0x2T5/KBAklKvWjIYAB2aFXChSUpmh2dGpk
+          Gnwo8Y0NZiukKxViDAnXa8fLIhuhWTzynB2nbbBNUJQPlX5LIakVphZPDIR4YIO8
+          HLysXre0mA4usHXsNxk+bKry1EOZUZerbmz+oNnWFXn8WdlRD/jsldXEKqaohVdX
+          PuC1/dZSRUfR3F7re7DCphnCWhzIMXszs6bficOivGXVhGy2RVY=
+          -----END CERTIFICATE-----
+        owner: root
+        group: root
+        mode: '0644'
+

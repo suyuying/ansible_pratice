@@ -1,0 +1,22 @@
+- name: Create a directory for Filebeat configs
+  file:
+    path: "{{ filebeat_config_path }}"
+    state: directory
+    mode: '0755'
+  become: yes
+
+- name: Create Filebeat config for each service
+  vars:
+    service_name: "{{ item.log_path.split('/')[-3] }}"
+  template:
+    src: "{{ input_template_path }}"
+    dest: "{{ filebeat_config_path }}/{{ service_name }}.yml"
+  loop: "{{ services }}"
+  loop_control:
+    loop_var: item
+
+- name: Create Filebeat main config
+  template:
+    src: "{{ filebeat_template_path }}"
+    dest: "/etc/filebeat/filebeat.yml"
+  become: yes

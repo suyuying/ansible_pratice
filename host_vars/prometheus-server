@@ -1,0 +1,7 @@
+---
+test1: value1
+ansible_ssh_port: 22
+hostname: backendfsdf
+services:
+  - log_path: "/data/G13_prome_api_p/logs/*.log"
+  - log_path: "/data/G13_prmeaoi_office_p/logs/*.log"

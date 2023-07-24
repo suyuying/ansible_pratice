@@ -1,30 +1,47 @@
----
-- name: Install necessary packages
-  apt:
-    name:
-      - apt-transport-https
-      - wget
-    state: present
-
-- name: Add Elastic GPG key
+- name: Add Elastic GPG key (Debian)
   apt_key:
     url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
     state: present
+  when: ansible_os_family == "Debian"
 
-- name: Add Elastic repository
+- name: Add Elastic GPG key (RedHat)
+  rpm_key:
+    state: present
+    key: https://packages.elastic.co/GPG-KEY-elasticsearch
+  when: ansible_os_family == "RedHat"
+
+- name: Add Elastic repository (Debian)
   apt_repository:
     repo: "deb https://artifacts.elastic.co/packages/8.x/apt stable main"
     state: present
     filename: elastic-8.x
+  when: ansible_os_family == "Debian"
 
-- name: Update apt and install filebeat
+- name: Add Elastic repository (RedHat)
+  yum_repository:
+    name: elastic-8.x
+    description: Elastic repository for 8.x packages
+    baseurl: https://artifacts.elastic.co/packages/8.x/yum
+    gpgcheck: yes
+    gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    enabled: yes
+  when: ansible_os_family == "RedHat"
+
+- name: Install filebeat (Debian)
   apt:
     name: filebeat
-    update_cache: yes
     state: present
+  when: ansible_os_family == "Debian"
+
+- name: Install filebeat (RedHat)
+  yum:
+    name: filebeat
+    state: present
+  when: ansible_os_family == "RedHat"
 
 - name: Enable filebeat service
   systemd:
     name: filebeat
     enabled: yes
+    state: started
 

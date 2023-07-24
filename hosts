@@ -10,18 +10,24 @@
 
 # Ex 1: Ungrouped hosts, specify before any group headers.
 
-[Ubuntu22]
-prometheus_server ansible_host=10.0.0.112
+#[Ubuntu22]
+#prometheus_server ansible_host=10.0.0.112
 
-[Ubuntu22:vars]
-ansible_user=ubuntu
+#[Ubuntu22:vars]
+#ansible_user=ubuntu
 
 [filebeat]
 backend1 ansible_host=10.0.0.112
 prometheus-server ansible_host=10.0.0.83
 [filebeat:vars]
 ansible_user=ubuntu
-
+program_language= "java"
+filebeat_config_path="/etc/filebeat/configs"
+product_name= "G12"
+environment_name= "UAT"
+filebeat_template_path= "./roles/filebeat_configure/templates/filebeat_template.j2"
+input_template_path= "./roles/filebeat_configure/templates/input_template.j2"
+filebeat_config_path= "/etc/filebeat/configs"
 [CentOS7]
 localhost
 Centos8

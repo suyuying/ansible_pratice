@@ -1,0 +1,53 @@
+filebeat.config.modules:
+  path: ${path.config}/modules.d/*filebeat.yml
+  reload.enabled: true
+  reload.period: 10s
+logging.level: debug
+logging.to_files: true
+logging.json: false
+logging.metrics.enabled: true
+logging.to_eventlog: false
+logging.to_syslog: false
+logging.selectors:
+- '*'
+logging.files:
+  path: /var/log/filebeat
+  rotateeverybytes: 10485760
+  interval: 24h
+  rotateonstartup: false
+  redirect_stderr: true
+  name: filebeat
+  keepfiles: 7
+  permissions: '0640'
+setup.template.pattern: '*filebeat*'
+setup.template.overwrite: true
+setup.template.settings:
+  index.number_of_shards: 1 # depend on your index size > 20g or not
+  index.number_of_replicas: 1
+max_procs: 1
+filebeat.config.inputs:
+  enabled: true
+  path: configs/*.yml
+  reload.enabled: true
+  reload.period: 10s
+output.elasticsearch:
+  enabled: true
+  hosts:
+  - 10.160.0.8:9200
+  - 10.160.0.9:9200
+  - 10.160.0.10:9200
+  indices:
+{% for item in services %}
+  - index: "{{ program_language }}-{{ item.log_path.split('/')[-3] }}-{{ product_name }}-{{ environment_name }}-filebeat-%{+yyyy.MM.dd}"
+    when.equals:
+      fields.log_type: "{{ item.log_path.split('/')[-3] }}"
+{% endfor %}
+
+  protocol: https
+  username: elastic
+  password: aloha
+  ssl.certificate_authorities:
+  - /etc/filebeat/ca.crt
+setup.kibana:
+  host: https://kibana.urdomain.com/
+

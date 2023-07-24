@@ -1,0 +1,4 @@
+---
+services:
+  - log_path: "/data/G12_backend_api_p/logs/*.log"
+  - log_path: "/data/G12_backend_api_office_p/logs/*.log"
